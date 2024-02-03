@@ -2,7 +2,7 @@ streamlit
 pandas
 mysql
 matplotlib
-sklearn
+scikit-learn
 numpy
 google
 IPython
