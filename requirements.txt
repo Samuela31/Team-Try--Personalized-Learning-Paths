@@ -6,3 +6,7 @@ numpy
 google
 IPython
 mysqlclient
+
+[packages]
+pkg-config = "*"
+libmysqlclient-dev = "*"
