@@ -6,3 +6,4 @@ sklearn
 numpy
 google
 IPython
+os
