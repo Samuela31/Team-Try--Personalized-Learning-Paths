@@ -58,8 +58,6 @@ INSERT INTO pl_student_data (ID, Name, Learning_preference) VALUES (
     'Visual'
 );
 
-
-
 INSERT INTO pl_student_data (ID, Name, Learning_preference) VALUES (
     '01HNCCSMK2GPJGY0VAZVWEA3J12',
     'Shelly Mary',
@@ -79,43 +77,7 @@ INSERT INTO pl_student_data (ID, Name, Learning_preference) VALUES (
     'Visual'
 );
 
------------------updates--------------------
-UPDATE pl_student_data
-SET 
-    `Beginner_lecture_1` = 1,
-    `Beginner_lecture_2` = 1,
-    `Beginner_lecture_3` = 1,
-    `Medium_lecture_2` = 1,
-    `Medium_lecture_3` = 1,
-    `Advanced_lecture_1` = 1,
-    `Advanced_lecture_3` = 1,
-    `Medium_lesson_1` = 1,
-    `Medium_lesson_2` = 1,
-    `Advanced_lesson_1` = 1,
-    `Advanced_lesson_2` = 1,
-    `Advanced_hands_on_2` = 1,
-    `Advanced_hands_on_3` = 1,
-    `Medium_hands_on_3` = 1
-WHERE ID = '01HNCCSMK2GPJGY0VAZVWEA3J12';
-
-UPDATE pl_student_data
-SET
-    Beginner_lecture_1 = 1,
-    Beginner_lecture_2 = 1,
-    Medium_lecture_2 = 1,
-    Medium_lecture_3 = 1,
-    Advanced_lecture_3 = 1,
-    Beginner_lesson_1 = 1,
-    Beginner_lesson_3 = 1,
-    Medium_lesson_2 = 1,
-    Advanced_lesson_1 = 1,
-    Advanced_lesson_2 = 1,
-    Medium_hands_on_1 = 1,
-    Medium_hands_on_3 = 1
-WHERE ID = '01HNCCSMK2GPJGY0VAZVWEA3J13';
-
-
-------------trigger------------------------------
+------------trigger 1 to mark completion of activities------------------------------
 DELIMITER //
 CREATE TRIGGER student_data_update_trigger
 AFTER UPDATE ON pl_student_data
@@ -275,7 +237,7 @@ END;
 //
 DELIMITER ;
 
------------------trigger 2-------------------
+-----------------trigger 2 to update overall score and performance on completion of quizes and assessments------------
 
 DELIMITER //
 
