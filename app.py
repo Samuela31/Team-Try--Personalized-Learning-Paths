@@ -26,12 +26,16 @@ background: rgba(0,0,0,0);
    
 #Function to connect to MySQL and fetch unique student IDs
 def get_unique_student_ids():
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+   # Access database credentials using st.secrets
+   db_credentials = st.secrets["connections.mysql"]
+   
+   # Establish a connection to the MySQL database
+   connection = mysql.connector.connect(
+       host=db_credentials["host"],
+       user=db_credentials["username"],
+       password=db_credentials["password"],
+       database=db_credentials["database"]
+   )
 
     cursor = connection.cursor(dictionary=True)
 
@@ -45,12 +49,16 @@ def get_unique_student_ids():
 
 #Function to connect to MySQL and fetch student details
 def get_student_details(student_id):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+   # Access database credentials using st.secrets
+   db_credentials = st.secrets["connections.mysql"]
+   
+   # Establish a connection to the MySQL database
+   connection = mysql.connector.connect(
+       host=db_credentials["host"],
+       user=db_credentials["username"],
+       password=db_credentials["password"],
+       database=db_credentials["database"]
+   )
 
     cursor = connection.cursor(dictionary=True)
 
@@ -64,13 +72,16 @@ def get_student_details(student_id):
 
 #Function to connect to MySQL and fetch activities data for a specific student
 def get_student_activities(student_id):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
-
+   # Access database credentials using st.secrets
+   db_credentials = st.secrets["connections.mysql"]
+   
+   # Establish a connection to the MySQL database
+   connection = mysql.connector.connect(
+       host=db_credentials["host"],
+       user=db_credentials["username"],
+       password=db_credentials["password"],
+       database=db_credentials["database"]
+   )
     cursor = connection.cursor(dictionary=True)
 
     #Fetch activities data based on student ID
@@ -83,12 +94,16 @@ def get_student_activities(student_id):
 
 #Function to update the MySQL database on completion of activity
 def update_database(student_id, attribute_column):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+   # Access database credentials using st.secrets
+   db_credentials = st.secrets["connections.mysql"]
+   
+   # Establish a connection to the MySQL database
+   connection = mysql.connector.connect(
+       host=db_credentials["host"],
+       user=db_credentials["username"],
+       password=db_credentials["password"],
+       database=db_credentials["database"]
+   )
 
     cursor = connection.cursor()
     
@@ -108,12 +123,16 @@ def update_database(student_id, attribute_column):
 
 #Function to update the MySQL database on completion of assessments and quizes
 def update_database_aq(student_id, attribute_column, score):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+   # Access database credentials using st.secrets
+   db_credentials = st.secrets["connections.mysql"]
+   
+   # Establish a connection to the MySQL database
+   connection = mysql.connector.connect(
+       host=db_credentials["host"],
+       user=db_credentials["username"],
+       password=db_credentials["password"],
+       database=db_credentials["database"]
+   )
 
     cursor = connection.cursor()
     
