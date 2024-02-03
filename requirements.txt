@@ -3,7 +3,7 @@ pandas
 matplotlib
 scikit-learn
 numpy
-google
+google-generativeai
 IPython
 mysqlclient
 mysql-connector-python
