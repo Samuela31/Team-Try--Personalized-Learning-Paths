@@ -35,7 +35,7 @@ def get_unique_student_ids():
        user=db_credentials["username"],
        password=db_credentials["password"],
        database=db_credentials["database"]
-   )
+    )
 
     cursor = connection.cursor(dictionary=True)
 
