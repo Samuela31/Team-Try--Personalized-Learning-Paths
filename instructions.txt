@@ -1,0 +1,300 @@
+.\my_streamlit_env\Scripts\activate
+
+streamlit run app.py
+
+
+---------------MySQL------------------------
+CREATE TABLE pl_student_data (
+    ID VARCHAR(50) PRIMARY KEY,
+    Name VARCHAR(255),
+    Learning_preference VARCHAR(50),
+    Assessment_1 INT DEFAULT 0,
+    Assessment_2 INT DEFAULT 0,
+    Quiz_1 INT DEFAULT 0,
+    Quiz_2 INT DEFAULT 0,
+    Beginner_lecture_1 INT DEFAULT 0,
+    Beginner_lecture_2 INT DEFAULT 0,
+    Beginner_lecture_3 INT DEFAULT 0,
+    Medium_lecture_1 INT DEFAULT 0,
+    Medium_lecture_2 INT DEFAULT 0,
+    Medium_lecture_3 INT DEFAULT 0,
+    Advanced_lecture_1 INT DEFAULT 0,
+    Advanced_lecture_2 INT DEFAULT 0,
+    Advanced_lecture_3 INT DEFAULT 0,
+    Beginner_lesson_1 INT DEFAULT 0,
+    Beginner_lesson_2 INT DEFAULT 0,
+    Beginner_lesson_3 INT DEFAULT 0,
+    Medium_lesson_1 INT DEFAULT 0,
+    Medium_lesson_2 INT DEFAULT 0,
+    Medium_lesson_3 INT DEFAULT 0,
+    Advanced_lesson_1 INT DEFAULT 0,
+    Advanced_lesson_2 INT DEFAULT 0,
+    Advanced_lesson_3 INT DEFAULT 0,
+    Beginner_hands_on_1 INT DEFAULT 0,
+    Beginner_hands_on_2 INT DEFAULT 0,
+    Beginner_hands_on_3 INT DEFAULT 0,
+    Medium_hands_on_1 INT DEFAULT 0,
+    Medium_hands_on_2 INT DEFAULT 0,
+    Medium_hands_on_3 INT DEFAULT 0,
+    Advanced_hands_on_1 INT DEFAULT 0,
+    Advanced_hands_on_2 INT DEFAULT 0,
+    Advanced_hands_on_3 INT DEFAULT 0,
+    Overall_Score INT DEFAULT 0,
+    Overall_Performance VARCHAR(50) DEFAULT NULL,
+    Password VARCHAR(255) DEFAULT '123'
+);
+
+CREATE TABLE activities_finished_data (
+    sid VARCHAR(50),
+    finish_date DATE,
+    activity VARCHAR(50)
+);
+
+
+-------use sample;----------------------
+INSERT INTO pl_student_data (ID, Name, Learning_preference) VALUES (
+    '01HNCCSMK2GPJGY0VAZVWEA3J11',
+    'Sam Abi',
+    'Visual'
+);
+
+
+
+INSERT INTO pl_student_data (ID, Name, Learning_preference) VALUES (
+    '01HNCCSMK2GPJGY0VAZVWEA3J12',
+    'Shelly Mary',
+    'Auditory'
+);
+
+INSERT INTO pl_student_data (ID, Name, Learning_preference, Password) VALUES (
+    '01HNCCSMK2GPJGY0VAZVWEA3J13',
+    'Allen Walker',
+    'Kinesthetic',
+    'Al123'
+);
+
+INSERT INTO pl_student_data (ID, Name, Learning_preference) VALUES (
+    '01HNCCSMK2GPJGY0VAZVWEA3J14',
+    'Noel Daisy',
+    'Visual'
+);
+
+-----------------updates--------------------
+UPDATE pl_student_data
+SET 
+    `Beginner_lecture_1` = 1,
+    `Beginner_lecture_2` = 1,
+    `Beginner_lecture_3` = 1,
+    `Medium_lecture_2` = 1,
+    `Medium_lecture_3` = 1,
+    `Advanced_lecture_1` = 1,
+    `Advanced_lecture_3` = 1,
+    `Medium_lesson_1` = 1,
+    `Medium_lesson_2` = 1,
+    `Advanced_lesson_1` = 1,
+    `Advanced_lesson_2` = 1,
+    `Advanced_hands_on_2` = 1,
+    `Advanced_hands_on_3` = 1,
+    `Medium_hands_on_3` = 1
+WHERE ID = '01HNCCSMK2GPJGY0VAZVWEA3J12';
+
+UPDATE pl_student_data
+SET
+    Beginner_lecture_1 = 1,
+    Beginner_lecture_2 = 1,
+    Medium_lecture_2 = 1,
+    Medium_lecture_3 = 1,
+    Advanced_lecture_3 = 1,
+    Beginner_lesson_1 = 1,
+    Beginner_lesson_3 = 1,
+    Medium_lesson_2 = 1,
+    Advanced_lesson_1 = 1,
+    Advanced_lesson_2 = 1,
+    Medium_hands_on_1 = 1,
+    Medium_hands_on_3 = 1
+WHERE ID = '01HNCCSMK2GPJGY0VAZVWEA3J13';
+
+
+------------trigger------------------------------
+DELIMITER //
+CREATE TRIGGER student_data_update_trigger
+AFTER UPDATE ON pl_student_data
+FOR EACH ROW
+BEGIN
+    DECLARE activity_name VARCHAR(50);
+    
+    -- Check which attribute is being updated
+    IF NEW.Beginner_lecture_1 <> OLD.Beginner_lecture_1 THEN
+        SET activity_name = 'Beginner_lecture_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Beginner_lecture_2 <> OLD.Beginner_lecture_2 THEN
+        SET activity_name = 'Beginner_lecture_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Beginner_lecture_3 <> OLD.Beginner_lecture_3 THEN
+        SET activity_name = 'Beginner_lecture_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+    IF NEW.Medium_lecture_1 <> OLD.Medium_lecture_1 THEN
+        SET activity_name = 'Medium_lecture_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Medium_lecture_2 <> OLD.Medium_lecture_2 THEN
+        SET activity_name = 'Medium_lecture_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Medium_lecture_3 <> OLD.Medium_lecture_3 THEN
+        SET activity_name = 'Medium_lecture_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+    IF NEW.Advanced_lecture_1 <> OLD.Advanced_lecture_1 THEN
+        SET activity_name = 'Advanced_lecture_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Advanced_lecture_2 <> OLD.Advanced_lecture_2 THEN
+        SET activity_name = 'Advanced_lecture_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Advanced_lecture_3 <> OLD.Advanced_lecture_3 THEN
+        SET activity_name = 'Advanced_lecture_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+
+
+    IF NEW.Beginner_lesson_1 <> OLD.Beginner_lesson_1 THEN
+        SET activity_name = 'Beginner_lesson_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Beginner_lesson_2 <> OLD.Beginner_lesson_2 THEN
+        SET activity_name = 'Beginner_lecture_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Beginner_lesson_3 <> OLD.Beginner_lesson_3 THEN
+        SET activity_name = 'Beginner_lesson_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Medium_lesson_1 <> OLD.Medium_lesson_1 THEN
+        SET activity_name = 'Medium_lesson_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Medium_lesson_2 <> OLD.Medium_lesson_2 THEN
+        SET activity_name = 'Medium_lesson_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Medium_lesson_3 <> OLD.Medium_lesson_3 THEN
+        SET activity_name = 'Medium_lesson_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+    IF NEW.Advanced_lesson_1 <> OLD.Advanced_lesson_1 THEN
+        SET activity_name = 'Advanced_lesson_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Advanced_lesson_2 <> OLD.Advanced_lesson_2 THEN
+        SET activity_name = 'Advanced_lesson_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Advanced_lesson_3 <> OLD.Advanced_lesson_3 THEN
+        SET activity_name = 'Advanced_lesson_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+
+
+    IF NEW.Beginner_hands_on_1 <> OLD.Beginner_hands_on_1 THEN
+        SET activity_name = 'Beginner_hands_on_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Beginner_hands_on_2 <> OLD.Beginner_hands_on_2 THEN
+        SET activity_name = 'Beginner_hands_on_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Beginner_hands_on_3 <> OLD.Beginner_hands_on_3 THEN
+        SET activity_name = 'Beginner_hands_on_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+    IF NEW.Medium_hands_on_1 <> OLD.Medium_hands_on_1 THEN
+        SET activity_name = 'Medium_hands_on_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Medium_hands_on_2 <> OLD.Medium_hands_on_2 THEN
+        SET activity_name = 'Medium_hands_on_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Medium_hands_on_3 <> OLD.Medium_hands_on_3 THEN
+        SET activity_name = 'Medium_hands_on_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+    IF NEW.Advanced_hands_on_1 <> OLD.Advanced_hands_on_1 THEN
+        SET activity_name = 'Advanced_hands_on_1';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Advanced_hands_on_2 <> OLD.Advanced_hands_on_2 THEN
+        SET activity_name = 'Advanced_lecture_2';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+    IF NEW.Advanced_hands_on_3 <> OLD.Advanced_hands_on_3 THEN
+        SET activity_name = 'Advanced_hands_on_3';
+        INSERT INTO activities_finished_data (sid, finish_date, activity)
+        VALUES (NEW.ID, CURRENT_DATE(), activity_name);
+    END IF;
+
+END;
+//
+DELIMITER ;
+
+-----------------trigger 2-------------------
+
+DELIMITER //
+
+CREATE TRIGGER update_scores_and_performance
+BEFORE UPDATE
+ON pl_student_data
+FOR EACH ROW
+BEGIN
+    SET NEW.Overall_Score = (NEW.Assessment_1 + NEW.Assessment_2 + NEW.Quiz_1 + NEW.Quiz_2) / 250 * 100;
+
+    IF NEW.Overall_Score >= 85 THEN
+        SET NEW.Overall_Performance = 'Excellent';
+    ELSEIF NEW.Overall_Score >= 70 AND NEW.Overall_Score < 85 THEN
+        SET NEW.Overall_Performance = 'Good';
+    ELSEIF NEW.Overall_Score >= 50 AND NEW.Overall_Score < 70 THEN
+        SET NEW.Overall_Performance = 'Average';
+    ELSE
+        SET NEW.Overall_Performance = 'Poor';
+    END IF;
+END //
+
+DELIMITER ;
