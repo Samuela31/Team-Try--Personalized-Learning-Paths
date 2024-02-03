@@ -1,8 +1,8 @@
 streamlit
 pandas
-mysql
 matplotlib
 scikit-learn
 numpy
 google
 IPython
+mysqlclient
