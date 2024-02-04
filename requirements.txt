@@ -7,3 +7,4 @@ google-generativeai
 IPython
 mysqlclient
 mysql-connector-python
+sqlalchemy
