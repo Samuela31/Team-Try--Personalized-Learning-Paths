@@ -24,16 +24,13 @@ background: rgba(0,0,0,0);
 </style>
 """
 
-#Retrieve database credentials from Streamlit secrets
-db_credentials = st.secrets["connections.mysql"]
-
 #Establish a connection to the MySQL database
 connection = mysql.connector.connect(
-    host=db_credentials["host"],
-    user=db_credentials["username"],
-    password=db_credentials["password"],
-    database=db_credentials["database"],
-    port=db_credentials["port"]
+    host=st.secrets["host"],
+    user=st.secrets["username"],
+    password=st.secrets["password"],
+    database=st.secrets["database"],
+    port=st.secrets["port"]
 )
 
 #Function to connect to MySQL and fetch unique student IDs
