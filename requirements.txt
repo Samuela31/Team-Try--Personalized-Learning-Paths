@@ -8,3 +8,4 @@ IPython
 mysqlclient
 mysql-connector-python
 SQLAlchemy
+pymysql
