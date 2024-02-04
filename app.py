@@ -1,4 +1,16 @@
 import streamlit as st
+
+# Initialize connection.
+conn = st.connection('mysql', type='sql')
+
+# Perform query.
+df = conn.query('SELECT * from pl_student_data;', ttl=600)
+
+# Print results.
+for row in df.itertuples():
+    st.write(f"{row.name} has a :{row.ID}:")
+
+'''import streamlit as st
 import pandas as pd
 import mysql.connector
 import matplotlib.pyplot as plt
@@ -746,3 +758,4 @@ elif st.session_state.page == "page2":
     page2()
 elif st.session_state.page == "page3":
     page3()
+'''
