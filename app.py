@@ -49,7 +49,7 @@ connection = pymysql.connect(
 
 #Function to connect to MySQL and fetch unique student IDs
 def get_unique_student_ids():
-    cursor = connection.cursor(dictionary=True)
+    cursor = connection.cursor()
 
     #Fetch unique student IDs from the database
     query = "SELECT DISTINCT ID FROM pl_student_data"
@@ -61,7 +61,7 @@ def get_unique_student_ids():
 
 #Function to connect to MySQL and fetch student details
 def get_student_details(student_id):
-    cursor = connection.cursor(dictionary=True)
+    cursor = connection.cursor()
 
     #Fetch student details based on ID
     query = f"SELECT * FROM pl_student_data WHERE ID = '{student_id}'"
@@ -73,7 +73,7 @@ def get_student_details(student_id):
 
 #Function to connect to MySQL and fetch activities data for a specific student
 def get_student_activities(student_id):
-    cursor = connection.cursor(dictionary=True)
+    cursor = connection.cursor()
 
     #Fetch activities data based on student ID
     query = f"SELECT * FROM activities_finished_data WHERE sid = '{student_id}'"
