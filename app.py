@@ -26,110 +26,57 @@ background: rgba(0,0,0,0);
    
 #Function to connect to MySQL and fetch unique student IDs
 def get_unique_student_ids():
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+    conn = st.connection('mysql', type='sql')
 
-    cursor = connection.cursor(dictionary=True)
+    #Perform query
+    df = conn.query('SELECT DISTINCT ID FROM pl_student_data;')
 
-    #Fetch unique student IDs from the database
-    query = "SELECT DISTINCT ID FROM pl_student_data"
-    cursor.execute(query)
-    unique_student_ids = [result['ID'] for result in cursor.fetchall()]
-
-    connection.close()
+    #Get unique student IDs from the DataFrame
+    unique_student_ids = df['ID'].tolist()
+    
     return unique_student_ids
 
 #Function to connect to MySQL and fetch student details
 def get_student_details(student_id):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+    conn = st.connection('mysql', type='sql')
 
-    cursor = connection.cursor(dictionary=True)
-
-    #Fetch student details based on ID
     query = f"SELECT * FROM pl_student_data WHERE ID = '{student_id}'"
-    cursor.execute(query)
-    student_data = cursor.fetchone()
+    df = conn.query(query)
 
-    connection.close()
+    student_data = df.iloc[0].to_dict() if not df.empty else None
+
     return student_data
 
 #Function to connect to MySQL and fetch activities data for a specific student
 def get_student_activities(student_id):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+    conn = st.connection('mysql', type='sql')
 
-    cursor = connection.cursor(dictionary=True)
-
-    #Fetch activities data based on student ID
     query = f"SELECT * FROM activities_finished_data WHERE sid = '{student_id}'"
-    cursor.execute(query)
-    activities_data = cursor.fetchall()
+    df = conn.query(query)
 
-    connection.close()
+    activities_data = df.to_dict(orient='records') if not df.empty else []
+
     return activities_data
 
 #Function to update the MySQL database on completion of activity
 def update_database(student_id, attribute_column):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+    conn = st.connection('mysql', type='sql')
 
-    cursor = connection.cursor()
-    
-    #Enclose column name in backticks
-    column_name_with_backticks = f"`{attribute_column}`"
-    
-    query = f"UPDATE pl_student_data SET {column_name_with_backticks} = 1 WHERE ID = '{student_id}'"
+    query = f"UPDATE pl_student_data SET `{attribute_column}` = 1 WHERE ID = '{student_id}'"
+    conn.query(query)
 
-    try:
-        cursor.execute(query)
-        connection.commit()
-        st.success(f"Updated {attribute_column} for student {student_id}")
-    except mysql.connector.Error as err:
-        st.error(f"Error updating database: {err}")
-
-    connection.close()    
+    st.success(f"Updated {attribute_column} for student {student_id}")
+   
 
 #Function to update the MySQL database on completion of assessments and quizes
 def update_database_aq(student_id, attribute_column, score):
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="sample"
-    )
+    conn = st.connection('mysql', type='sql')
 
-    cursor = connection.cursor()
-    
-    #Enclose column name in backticks
-    column_name_with_backticks = f"`{attribute_column}`"
-    
-    query = f"UPDATE pl_student_data SET {column_name_with_backticks} = {score} WHERE ID = '{student_id}' AND {column_name_with_backticks} = 0"
+    query = f"UPDATE pl_student_data SET `{attribute_column}` = {score} WHERE ID = '{student_id}' AND `{attribute_column}` = 0"
+    conn.query(query)
 
-    try:
-        cursor.execute(query)
-        connection.commit()
-        st.success(f"Updated {attribute_column} for student {student_id}")
-    except mysql.connector.Error as err:
-        st.error(f"Error updating database: {err}")
-
-    connection.close()    
+    st.success(f"Updated {attribute_column} for student {student_id}")    
+  
 
 #Form and evaluation for assessments
 def display_assessment(questions_and_answers, form_key):
