@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import mysql.connector
+import pymysql
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from model import df  
@@ -25,13 +26,26 @@ background: rgba(0,0,0,0);
 """
 
 #Establish a connection to the MySQL database
-connection = mysql.connector.connect(
+timeout = 10
+connection = pymysql.connect(
+    charset="utf8mb4",
+    connect_timeout=timeout,
+    cursorclass=pymysql.cursors.DictCursor,
+    db="defaultdb",
+    host="mysql-13574bf9-student122020-9ea3.a.aivencloud.com",
+    password="AVNS_zMsIxnSQOqch3ABYRrp",
+    read_timeout=timeout,
+    port=25957,
+    user="avnadmin",
+    write_timeout=timeout,
+)
+'''connection = mysql.connector.connect(
     host=st.secrets["host"],
     user=st.secrets["username"],
     password=st.secrets["password"],
     database=st.secrets["database"],
     port=st.secrets["port"]
-)
+)'''
 
 #Function to connect to MySQL and fetch unique student IDs
 def get_unique_student_ids():
