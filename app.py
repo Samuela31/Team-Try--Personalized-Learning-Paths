@@ -24,11 +24,16 @@ background: rgba(0,0,0,0);
 </style>
 """
 
+#Retrieve database credentials from Streamlit secrets
+db_credentials = st.secrets["connections.mysql"]
+
+#Establish a connection to the MySQL database
 connection = mysql.connector.connect(
-    host="mysql-13574bf9-student122020-9ea3.a.aivencloud.com",
-    user="avnadmin",
-    password="AVNS_zMsIxnSQOqch3ABYRrp",
-    database="sample"
+    host=db_credentials["host"],
+    user=db_credentials["username"],
+    password=db_credentials["password"],
+    database=db_credentials["database"],
+    port=db_credentials["port"]
 )
 
 #Function to connect to MySQL and fetch unique student IDs
