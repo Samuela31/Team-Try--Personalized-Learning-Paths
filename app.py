@@ -26,30 +26,17 @@ background: rgba(0,0,0,0);
 """
 
 #Establish a connection to the MySQL database
-timeout = 10
-connection = pymysql.connect(
-    charset="utf8mb4",
-    connect_timeout=timeout,
-    cursorclass=pymysql.cursors.DictCursor,
-    db="defaultdb",
-    host="mysql-13574bf9-student122020-9ea3.a.aivencloud.com",
-    password="AVNS_zMsIxnSQOqch3ABYRrp",
-    read_timeout=timeout,
-    port=25957,
-    user="avnadmin",
-    write_timeout=timeout,
-)
-'''connection = mysql.connector.connect(
+connection = mysql.connector.connect(
     host=st.secrets["host"],
     user=st.secrets["username"],
     password=st.secrets["password"],
     database=st.secrets["database"],
     port=st.secrets["port"]
-)'''
+)
 
 #Function to connect to MySQL and fetch unique student IDs
 def get_unique_student_ids():
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
 
     #Fetch unique student IDs from the database
     query = "SELECT DISTINCT ID FROM pl_student_data"
@@ -61,7 +48,7 @@ def get_unique_student_ids():
 
 #Function to connect to MySQL and fetch student details
 def get_student_details(student_id):
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
 
     #Fetch student details based on ID
     query = f"SELECT * FROM pl_student_data WHERE ID = '{student_id}'"
@@ -73,7 +60,7 @@ def get_student_details(student_id):
 
 #Function to connect to MySQL and fetch activities data for a specific student
 def get_student_activities(student_id):
-    cursor = connection.cursor()
+    cursor = connection.cursor(dictionary=True)
 
     #Fetch activities data based on student ID
     query = f"SELECT * FROM activities_finished_data WHERE sid = '{student_id}'"
