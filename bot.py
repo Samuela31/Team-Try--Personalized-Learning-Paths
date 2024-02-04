@@ -4,13 +4,14 @@ import os
 import google.generativeai as genai
 from IPython.display import display
 from IPython.display import Markdown
+import streamlit as st
 
 '''def to_markdown(text):
   text = text.replace('•', '  *')
   return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))'''
 
 def gemini(text):
-  GOOGLE_API_KEY=os.getenv('GOOGLE_API_KEY')
+  GOOGLE_API_KEY=st.secrets["GOOGLE_API_KEY"]
   genai.configure(api_key=GOOGLE_API_KEY)
 
   model = genai.GenerativeModel('gemini-pro')
