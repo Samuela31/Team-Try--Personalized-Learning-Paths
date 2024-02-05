@@ -1,5 +1,6 @@
 Live Application-
 https://team-try--personalized-learning-paths-mly2kxrxvlzq5gg7dkrcmt.streamlit.app/
+(Buttons should to double clicked in application to work. Initial loading might take some time)
 
 Team Try members-
 Samuela Abigail Mathew (leader)
@@ -24,5 +25,7 @@ Note-
 01HNCCSMK2GPJGY0VAZVWEA3J12
 
 01HNCCSMK2GPJGY0VAZVWEA3J11
+
+01HNCCSMK2GPJGY0VAZVWEA3J14
 
 01HNCCSMK2GPJGY0VAZVWEA3J13  (for this, password is Al123)
