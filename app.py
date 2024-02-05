@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import mysql.connector
-import pymysql
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from model import df  
