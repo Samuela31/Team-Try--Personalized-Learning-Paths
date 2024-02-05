@@ -10,7 +10,7 @@ Problem 5- Personalized Learning Paths
 
 Note-
 
-1)Ensure that tables, records, and triggers given in instructions.txt are executed in your MySQL database.
+1)Queries used to create tables, records, and triggers are given in instructions.txt and executed in MySQL database.
 
 2)Output folder contains screenshots of application run successfully in local system.
 
