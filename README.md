@@ -29,5 +29,5 @@ Note-
 
 01HNCCSMK2GPJGY0VAZVWEA3J13  (for this, password is Al123)
 
-7) Buttons should to double clicked in application to work. Initial loading might take some time, and page should be reloaded and logined again for reflection of changes made to database upon completion of activities, assessments, and quizzes.
+7)Buttons should to double clicked in application to work. Initial loading might take some time, and page should be reloaded and logined again for reflection of changes made to database upon completion of activities, assessments, and quizzes.
 
