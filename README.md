@@ -31,3 +31,8 @@ Note-
 
 7)Buttons should to double clicked in application to work. Initial loading might take some time, and page should be reloaded and logined again for reflection of changes made to database upon completion of activities, assessments, and quizzes.
 
+Contest- MachineKnight Season 2 (TechBairn) 
+
+Contest link- https://unstop.com/hackathons/machineknight-season-02-techbairn-857547
+
+Achieved rank 7 at end of contest in national level
